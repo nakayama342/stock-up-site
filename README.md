@@ -20,10 +20,10 @@ dist/
 ├── js/
 │   └── main.js         モバイルメニュー開閉
 └── assets/
-    ├── hero-blocks-cut.png   ヒーロー画像（背景透過）
-    ├── news-thumb2.png       ニュースのサムネイル
+    ├── hero-blocks-cut.webp  ヒーロー画像（背景透過）
+    ├── news-thumb2.webp      ニュースのサムネイル
     └── docs/                 会社説明資料の抜粋（横スクロールで表示）
-        └── slide-p14.jpg / p15 / p30 / p44
+        └── slide-p14.webp / p15 / p30 / p44
 ```
 
 ## 使い方

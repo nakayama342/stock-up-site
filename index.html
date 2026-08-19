@@ -10,8 +10,56 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+/* ローディング画面（最初に表示し、読み込み完了でフェードアウト） */
+#loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:linear-gradient(160deg,#1b78de 0%,#3a95e8 35%,#6cb6ef 70%,#9ccff4 100%);transition:opacity .5s ease,visibility .5s ease}
+#loader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+#loader .loader__logo{display:flex;align-items:center;gap:12px;color:#fff;font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;font-size:26px;font-weight:700;letter-spacing:.02em;animation:loaderPulse 1.6s ease-in-out infinite}
+#loader .loader__logo svg{width:38px;height:38px}
+#loader .loader__bar{width:140px;height:3px;border-radius:99px;background:rgba(255,255,255,.3);overflow:hidden}
+#loader .loader__bar::after{content:'';display:block;width:40%;height:100%;border-radius:99px;background:#fff;animation:loaderSlide 1.1s ease-in-out infinite}
+#loader .loader__text{font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:.24em;color:rgba(255,255,255,.85)}
+@keyframes loaderPulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes loaderSlide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+html.is-loading{overflow:hidden}
+@media (prefers-reduced-motion:reduce){#loader .loader__logo,#loader .loader__bar::after{animation:none}}
+</style>
+<script>
+/* 同一セッション内で2回目以降は表示しない */
+(function(){try{if(!sessionStorage.getItem('su-loaded')){document.documentElement.classList.add('is-loading');}}catch(e){document.documentElement.classList.add('is-loading');}})();
+</script>
 </head>
 <body class="page-home">
+
+<!-- ローディング -->
+<div id="loader" role="status" aria-live="polite" aria-label="読み込み中" hidden>
+  <div class="loader__logo">
+    <svg viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="7" fill="#ffffff"></rect><path d="M10 20 L19 11 M12.5 10.5 L19.5 10.5 L19.5 17.5" stroke="#2e86d1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+    <span>Stock-up</span>
+  </div>
+  <div class="loader__bar"></div>
+  <p class="loader__text">LOADING</p>
+</div>
+<script>
+(function(){
+  var el=document.getElementById('loader');
+  if(!document.documentElement.classList.contains('is-loading')){el.remove();return;}
+  el.hidden=false;
+  var start=Date.now(), MIN=600, MAX=5000, done=false;
+  function finish(){
+    if(done) return; done=true;
+    var wait=Math.max(0, MIN-(Date.now()-start));
+    setTimeout(function(){
+      el.classList.add('is-done');
+      document.documentElement.classList.remove('is-loading');
+      try{sessionStorage.setItem('su-loaded','1');}catch(e){}
+      setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 600);
+    }, wait);
+  }
+  window.addEventListener('load', finish);
+  setTimeout(finish, MAX); /* 万一 load が遅くても最大5秒で解除 */
+})();
+</script>
 
 <!-- ============================= 上部ブルーゾーン（ヘッダー＋ヒーロー） -->
 <div class="hero-zone">
@@ -187,16 +235,16 @@
 
   <div class="marquee" data-marquee aria-label="会社説明資料スライド（自動でスクロールします）">
     <div class="marquee__group">
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p14.jpg" alt="体系化ソリューションの提供：経営の番地化とKPI100" width="1600" height="900"></figure>
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p15.jpg" alt="経営の番地化について：経営基盤の落とし込み諸項目体系図" width="1600" height="900"></figure>
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p30.jpg" alt="KPI100について：企業価値UP KPI100選のカテゴリー" width="1600" height="900"></figure>
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p44.jpg" alt="このままのやり方で、事業は伸び続けますか？ 事業成長を止める要因は戦略ではなく構造にあるかもしれません" width="1600" height="900"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p14.webp" alt="体系化ソリューションの提供：経営の番地化とKPI100" width="1200" height="675" decoding="async"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p15.webp" alt="経営の番地化について：経営基盤の落とし込み諸項目体系図" width="1200" height="675" decoding="async"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p30.webp" alt="KPI100について：企業価値UP KPI100選のカテゴリー" width="1200" height="675" decoding="async"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p44.webp" alt="このままのやり方で、事業は伸び続けますか？ 事業成長を止める要因は戦略ではなく構造にあるかもしれません" width="1200" height="675" decoding="async"></figure>
     </div>
     <div class="marquee__group" aria-hidden="true">
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p14.jpg" alt="" width="1600" height="900"></figure>
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p15.jpg" alt="" width="1600" height="900"></figure>
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p30.jpg" alt="" width="1600" height="900"></figure>
-      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p44.jpg" alt="" width="1600" height="900"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p14.webp" alt="" width="1200" height="675" decoding="async"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p15.webp" alt="" width="1200" height="675" decoding="async"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p30.webp" alt="" width="1200" height="675" decoding="async"></figure>
+      <figure class="marquee__item glass-card"><img src="assets/docs/slide-p44.webp" alt="" width="1200" height="675" decoding="async"></figure>
     </div>
   </div>
 </section>

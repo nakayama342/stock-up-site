@@ -17,16 +17,16 @@
 #loader .loader__logo{display:flex;align-items:center;gap:12px;color:#fff;font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;font-size:26px;font-weight:700;letter-spacing:.02em;animation:loaderPulse 1.6s ease-in-out infinite}
 #loader .loader__logo svg{width:38px;height:38px}
 #loader .loader__bar{width:140px;height:3px;border-radius:99px;background:rgba(255,255,255,.3);overflow:hidden}
-#loader .loader__bar::after{content:'';display:block;width:40%;height:100%;border-radius:99px;background:#fff;animation:loaderSlide 1.1s ease-in-out infinite}
+#loader .loader__bar::after{content:'';display:block;width:100%;height:100%;border-radius:99px;background:#fff;transform-origin:left center;transform:scaleX(0);animation:loaderFill 4s cubic-bezier(.4,.1,.3,1) forwards}
 #loader .loader__text{font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:.24em;color:rgba(255,255,255,.85)}
 @keyframes loaderPulse{0%,100%{opacity:1}50%{opacity:.6}}
-@keyframes loaderSlide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+@keyframes loaderFill{0%{transform:scaleX(0)}70%{transform:scaleX(.78)}100%{transform:scaleX(1)}}
 html.is-loading{overflow:hidden}
 @media (prefers-reduced-motion:reduce){#loader .loader__logo,#loader .loader__bar::after{animation:none}}
 </style>
 <script>
-/* 同一セッション内で2回目以降は表示しない */
-(function(){try{if(!sessionStorage.getItem('su-loaded')){document.documentElement.classList.add('is-loading');}}catch(e){document.documentElement.classList.add('is-loading');}})();
+/* トップページを開く・再読み込みするたびにローディングを表示 */
+document.documentElement.classList.add('is-loading');
 </script>
 </head>
 <body class="page-home">
@@ -45,14 +45,13 @@ html.is-loading{overflow:hidden}
   var el=document.getElementById('loader');
   if(!document.documentElement.classList.contains('is-loading')){el.remove();return;}
   el.hidden=false;
-  var start=Date.now(), MIN=600, MAX=5000, done=false;
+  var start=Date.now(), MIN=4000, MAX=8000, done=false; /* 約4秒かけて表示 */
   function finish(){
     if(done) return; done=true;
     var wait=Math.max(0, MIN-(Date.now()-start));
     setTimeout(function(){
       el.classList.add('is-done');
       document.documentElement.classList.remove('is-loading');
-      try{sessionStorage.setItem('su-loaded','1');}catch(e){}
       setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 600);
     }, wait);
   }

@@ -1765,3 +1765,68 @@ p {
 @media (max-width: 520px) {
   .site-footer__grid { grid-template-columns: 1fr; }
 }
+
+/* --------------------------------------------------------------------------
+   12. モーション（スクロール連動 / ヒーロー登場 / パララックス）
+   -------------------------------------------------------------------------- */
+/* スクロールで画面に入ったら浮き上がる */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ヒーローの登場（ローディング後に順番に現れる） */
+.hero-card__title,
+.hero-card__en,
+.hero-card__lead,
+.hero-card__name,
+.scroll-hint {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.hero-card__image {
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 0.6s ease, clip-path 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+body.is-ready .hero-card__title { opacity: 1; transform: none; transition-delay: 0.1s; }
+body.is-ready .hero-card__en    { opacity: 1; transform: none; transition-delay: 0.35s; }
+body.is-ready .hero-card__lead  { opacity: 1; transform: none; transition-delay: 0.5s; }
+body.is-ready .hero-card__name  { opacity: 1; transform: none; transition-delay: 0.65s; }
+body.is-ready .scroll-hint      { opacity: 1; transform: none; transition-delay: 1.4s; }
+body.is-ready .hero-card__image { opacity: 1; clip-path: inset(0 0 0 0); transition-delay: 0.3s; }
+
+/* パララックス / マウス追従用の内側ラッパー */
+.hero-card__image {
+  transform-style: preserve-3d;
+}
+
+.hero-card__image-inner {
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  will-change: transform;
+  transition: transform 0.12s linear;
+}
+
+/* 動きを減らす設定：すべて即時表示 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .hero-card__title, .hero-card__en, .hero-card__lead, .hero-card__name, .scroll-hint, .hero-card__image {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}

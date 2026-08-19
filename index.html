@@ -52,6 +52,7 @@ document.documentElement.classList.add('is-loading');
     setTimeout(function(){
       el.classList.add('is-done');
       document.documentElement.classList.remove('is-loading');
+      try{document.dispatchEvent(new CustomEvent('su:loaded'));}catch(e){var ev=document.createEvent('Event');ev.initEvent('su:loaded',true,true);document.dispatchEvent(ev);}
       setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 600);
     }, wait);
   }

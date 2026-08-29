@@ -1,2 +1,6 @@
 .DS_Store
 *.bak
+# FTP認証情報は絶対にコミットしない（キーチェーン管理）
+.ftppass
+*.netrc
+.env

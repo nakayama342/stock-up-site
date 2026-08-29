@@ -1,0 +1,20 @@
+# 株式会社ストック・アップ サイト設定
+
+Options -Indexes
+ErrorDocument 404 /404.html
+
+# ==== HTTP→HTTPSリダイレクト ====
+# ConoHaの無料独自SSLが「利用中」になったら、下の3行の先頭 # を外して有効化する
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^(.*)$ https://stock-up.site/$1 [R=301,L]
+# </IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+</IfModule>

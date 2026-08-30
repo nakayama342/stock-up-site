@@ -45,7 +45,7 @@
 #loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:linear-gradient(160deg,#1b78de 0%,#3a95e8 35%,#6cb6ef 70%,#9ccff4 100%);transition:opacity .5s ease,visibility .5s ease}
 #loader.is-done{opacity:0;visibility:hidden;pointer-events:none}
 #loader .loader__logo{display:flex;align-items:center;gap:12px;color:#fff;font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;font-size:26px;font-weight:700;letter-spacing:.02em;animation:loaderPulse 1.6s ease-in-out infinite}
-#loader .loader__logo svg{width:38px;height:38px}
+#loader .loader__logo svg,#loader .loader__logo img{width:38px;height:38px;display:block}
 #loader .loader__bar{width:140px;height:3px;border-radius:99px;background:rgba(255,255,255,.3);overflow:hidden}
 #loader .loader__bar::after{content:'';display:block;width:100%;height:100%;border-radius:99px;background:#fff;transform-origin:left center;transform:scaleX(0);animation:loaderFill 4s cubic-bezier(.4,.1,.3,1) forwards}
 #loader .loader__text{font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:.24em;color:rgba(255,255,255,.85)}
@@ -64,7 +64,7 @@ document.documentElement.classList.add('is-loading');
 <!-- ローディング -->
 <div id="loader" role="status" aria-live="polite" aria-label="読み込み中" hidden>
   <div class="loader__logo">
-    <svg viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="7" fill="#ffffff"></rect><path d="M10 20 L19 11 M12.5 10.5 L19.5 10.5 L19.5 17.5" stroke="#2e86d1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+    <img src="/assets/logo-tile.png" width="30" height="30" alt="株式会社ストック・アップ ロゴ">
     <span>Stock-up</span>
   </div>
   <div class="loader__bar"></div>
@@ -101,7 +101,7 @@ document.documentElement.classList.add('is-loading');
   <header class="site-header">
     <div class="site-header__inner">
       <a class="logo" href="#top">
-        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="7" fill="#ffffff"></rect><path d="M10 20 L19 11 M12.5 10.5 L19.5 10.5 L19.5 17.5" stroke="#2e86d1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+        <img src="/assets/logo-tile.png" width="30" height="30" alt="株式会社ストック・アップ ロゴ">
         <span class="logo__name">Stock-up</span>
       </a>
       <span class="header__sub">株式会社ストック・アップ</span>
@@ -400,7 +400,7 @@ document.documentElement.classList.add('is-loading');
   <div class="site-footer__grid">
     <div class="site-footer__brand">
       <a class="site-footer__logo" href="index.html">
-        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="7" fill="#ffffff"></rect><path d="M10 20 L19 11 M12.5 10.5 L19.5 10.5 L19.5 17.5" stroke="#2e86d1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+        <img src="/assets/logo-tile.png" width="30" height="30" alt="株式会社ストック・アップ ロゴ">
         <span class="site-footer__logo-name">Stock-up</span>
       </a>
       <p class="site-footer__company">株式会社ストック・アップ</p>

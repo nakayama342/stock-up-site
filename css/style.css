@@ -289,7 +289,7 @@ p {
   color: var(--color-white);
 }
 
-.logo svg {
+.logo svg, .logo img {
   width: 34px;
   height: 34px;
 }
@@ -1558,7 +1558,7 @@ p {
   opacity: 0.85;
 }
 
-.site-footer__logo svg {
+.site-footer__logo svg, .site-footer__logo img {
   width: 36px;
   height: 36px;
 }

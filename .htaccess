@@ -3,6 +3,11 @@
 Options -Indexes
 ErrorDocument 404 /404.html
 
+# ==== 削除済みページ（検索エンジンから除外させる） ====
+<IfModule mod_alias.c>
+  Redirect gone /news/2026-08-31.html
+</IfModule>
+
 # ==== HTTP→HTTPSリダイレクト ====
 # ConoHaの無料独自SSLが「利用中」になったら、下の3行の先頭 # を外して有効化する
 # <IfModule mod_rewrite.c>

@@ -4,3 +4,6 @@
 .ftppass
 *.netrc
 .env
+
+# Search Console 所有権確認ファイル(サーバーにだけ置く。deploy.sh は転送対象に含む)
+google*.html

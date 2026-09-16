@@ -1,0 +1,7 @@
+# 旧ドメイン stock-up.site → 正式ドメイン stock-up.jp への恒久転送(パスはそのまま引き継ぐ)
+# ./deploy.sh redirect-old で stock-up.site のフォルダにこのファイルだけを置く。
+# 置くのは stock-up.jp 側の SSL が有効になってから。
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(.*)$ https://stock-up.jp/$1 [R=301,L]
+</IfModule>

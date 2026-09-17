@@ -8,21 +8,13 @@ ErrorDocument 404 /404.html
   Redirect gone /news/2026-08-31.html
 </IfModule>
 
-# ==== www なしへ統一 ====
-# stock-up.jp の無料独自SSLが「利用中」になったら、下の4行の先頭 # を外して有効化する
-# <IfModule mod_rewrite.c>
-#   RewriteEngine On
-#   RewriteCond %{HTTP_HOST} ^www\.stock-up\.jp$ [NC]
-#   RewriteRule ^(.*)$ https://stock-up.jp/$1 [R=301,L]
-# </IfModule>
-
-# ==== HTTP→HTTPSリダイレクト ====
-# ConoHaの無料独自SSLが「利用中」になったら、下の3行の先頭 # を外して有効化する
-# <IfModule mod_rewrite.c>
-#   RewriteEngine On
-#   RewriteCond %{HTTPS} off
-#   RewriteRule ^(.*)$ https://stock-up.jp/$1 [R=301,L]
-# </IfModule>
+# ==== https://stock-up.jp/ に統一(www なし・HTTPS)。SSL有効化済み(2026-09-17) ====
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.stock-up\.jp$ [NC,OR]
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://stock-up.jp/$1 [R=301,L]
+</IfModule>
 
 <IfModule mod_headers.c>
   # HTTPS強制（1年間ブラウザに記憶させる）

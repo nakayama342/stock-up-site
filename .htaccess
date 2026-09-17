@@ -8,11 +8,12 @@ ErrorDocument 404 /404.html
   Redirect gone /news/2026-08-31.html
 </IfModule>
 
-# ==== https://stock-up.jp/ に統一(www なし・HTTPS)。SSL有効化済み(2026-09-17) ====
+# ==== www なし https://stock-up.jp/ に統一 ====
+# HTTP→HTTPS は ConoHa 側の「常時SSL化」が担当する。ConoHa は前段プロキシで SSL を終端するため
+# .htaccess の %{HTTPS} 判定は常に off になり、ここで書くと転送ループになる(2026-09-17 に実証)。
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteCond %{HTTP_HOST} ^www\.stock-up\.jp$ [NC,OR]
-  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP_HOST} ^www\.stock-up\.jp$ [NC]
   RewriteRule ^(.*)$ https://stock-up.jp/$1 [R=301,L]
 </IfModule>
 
